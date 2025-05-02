@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* Custom Font Faces */
+@font-face {
+  font-family: "jannaltbold";
+  src: url("@/assets/fonts/jannaltbold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "jannaltregular";
+  src: url("@/assets/fonts/jannaltregular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "jannatltlight";
+  src: url("@/assets/fonts/jannatltlight.ttf") format("truetype");
+}
+
+/* Base Styles */
+body {
+  font-family: "jannaltbold";
+  font-weight: bold;
+  direction: rtl;
+  background-color: #eceff3;
+}
+
+@theme {
+  --color-primary: #07706d;
+}
+
+@layer base {
+  img {
+    display: initial;
+  }
+}
+
+@media print {
+  body {
+    background-color: white;
+  }
+
+  button {
+    display: none;
+  }
+
+  input,
+  select {
+    border: none !important;
+    background: transparent !important;
+    padding: 0.25rem !important;
+  }
+
+  .print\:text-black {
+    color: black !important;
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
