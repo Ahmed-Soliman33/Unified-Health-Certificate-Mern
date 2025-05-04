@@ -220,6 +220,8 @@ const UserForm = ({
             <div className="bg-gray-50 p-3 rounded">
               <Label>رقم الشهادة الصحية</Label>
               <Input
+                type="number"
+                min={0}
                 name="healthCertificateNumber"
                 value={formData.healthCertificateNumber}
                 onChange={handleChange}
@@ -270,6 +272,8 @@ const UserForm = ({
             <div className="bg-gray-50 p-3 rounded">
               <Label>رقم الرخصة</Label>
               <Input
+                type="number"
+                min={0}
                 name="licenseNumber"
                 value={formData.licenseNumber}
                 onChange={handleChange}
@@ -279,6 +283,8 @@ const UserForm = ({
             <div className="bg-gray-50 p-3 rounded">
               <Label>رقم المنشأة</Label>
               <Input
+                type="number"
+                min={0}
                 name="establishmentNumber"
                 value={formData.establishmentNumber}
                 onChange={handleChange}
@@ -302,6 +308,8 @@ const UserForm = ({
             <div className="bg-gray-50 p-3 rounded">
               <Label>رقم الهوية</Label>
               <Input
+                type="number"
+                min={0}
                 name="idNumber"
                 value={formData.idNumber}
                 onChange={handleChange}

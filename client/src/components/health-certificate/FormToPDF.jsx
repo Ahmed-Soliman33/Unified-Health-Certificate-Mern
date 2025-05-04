@@ -13,7 +13,7 @@ import { CertificateFooter } from "./certificate-footer";
 import { GuidelinesPage } from "./guidelines-page";
 import { registerFonts } from "./font-register";
 import { municipalityLogos } from "./municipalityLogos";
-import pdf_bg from "@/assets/Images_PNG/pdf_bg.png";
+import pdf_bg from "@/assets/Images_PNG/bg.png";
 
 // Ensure fonts are registered
 registerFonts();
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   page: {
     position: "relative", // Important for background image layering
     flexDirection: "column",
-    backgroundColor: "#ECEFF3",
+    overflow: "hidden",
   },
   backgroundImage: {
     position: "absolute",
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     zIndex: -1,
-    opacity: 0.7,
   },
   container: {
     direction: "rtl",
@@ -66,12 +65,9 @@ const HealthCertificateDocument = ({
       style={styles.page}
     >
       {/* Background Image */}
-      <Image
-        src={pdf_bg} // You can use a base64 string or URL here
-        style={styles.backgroundImage}
-      />
+      <Image src={pdf_bg} style={styles.backgroundImage} />
 
-      <View style={styles.container}>
+      <View style={styles.container} fixed>
         <CertificateHeader municipalityLogo={municipalityLogo} />
         <PersonalInfoSection
           userLink={userLink}
@@ -79,7 +75,6 @@ const HealthCertificateDocument = ({
           imgLink={imgLink}
           formData={formData}
         />
-        <CertificateFooter />
       </View>
     </Page>
 

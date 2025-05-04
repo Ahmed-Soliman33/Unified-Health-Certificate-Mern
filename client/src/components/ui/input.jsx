@@ -9,7 +9,7 @@ export const Input = React.forwardRef(({ className = "", ...props }, ref) => {
 
   return (
     <input
-      className={`${baseStyles}  ${readOnlyStyles} ${className}`}
+      className={`${baseStyles}  ${readOnlyStyles} ${className} no-spinner`}
       ref={ref}
       {...props}
     />

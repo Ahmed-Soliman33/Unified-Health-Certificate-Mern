@@ -1,6 +1,4 @@
-import { View, Text, Image, StyleSheet } from "@react-pdf/renderer";
-import wzara_Logo from "@/assets/Images_PNG/eskan.png";
-import balady_Logo from "@/assets/Images_PNG/balady.png";
+import { View, Image, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   header: {
@@ -25,6 +23,7 @@ const styles = StyleSheet.create({
   municipalityLogo: {
     maxWidth: 100,
     maxHeight: 80,
+    transform: "translate(395px, 8px)",
   },
   titleContainer: {
     width: "49%",
@@ -46,13 +45,6 @@ const styles = StyleSheet.create({
 
 export const CertificateHeader = ({ municipalityLogo }) => (
   <View style={styles.header}>
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>الشهادة الصحية الموحدة</Text>
-    </View>
-    <View style={styles.imagesContainer}>
-      <Image src={municipalityLogo} style={styles.municipalityLogo} />
-      <Image src={balady_Logo} style={styles.logo} />
-      <Image src={wzara_Logo} style={styles.wzaraLogo} />
-    </View>
+    <Image src={municipalityLogo} style={styles.municipalityLogo} />
   </View>
 );

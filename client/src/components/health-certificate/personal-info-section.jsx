@@ -1,5 +1,17 @@
-import { View, Text, StyleSheet, Image, Link } from "@react-pdf/renderer";
+import { View, Text, StyleSheet, Image } from "@react-pdf/renderer";
 import moment from "moment-hijri";
+
+// Register the font (ensure the path is correct)
+import { Font } from "@react-pdf/renderer";
+Font.register({
+  family: "jannalt",
+  src: "path/to/jannalt.ttf", // Replace with the actual font file path
+});
+// Fallback font for testing
+Font.register({
+  family: "NotoSansArabic",
+  src: "https://fonts.google.com/noto/specimen/Noto+Sans+Arabic", // Or local path
+});
 
 const styles = StyleSheet.create({
   name: {
@@ -7,16 +19,16 @@ const styles = StyleSheet.create({
     color: "#07706D",
     direction: "rtl",
     paddingRight: 20,
-    paddingTop: 15,
+    position: "absolute",
+    zIndex: 1,
+    top: "30px",
     fontFamily: "jannalt",
     fontWeight: "bold",
-  },
-  infoRow: {
-    flexDirection: "column",
+    maxWidth: 300,
   },
   rowsContainer: {
     flexDirection: "row",
-    marginTop: -5,
+    marginTop: -15,
   },
   rightCol: {
     width: "83%",
@@ -29,125 +41,129 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     paddingLeft: 10,
-    paddingTop: 4,
+    paddingTop: 10,
+    paddingRight: 3,
   },
   content: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 13,
-    fontSize: "13px",
-  },
-  rightContent: {
+    fontSize: 13,
+    marginTop: 30,
     flex: 0.5,
-    flexDirection: "column",
-    paddingLeft: 10,
-  },
-  leftContent: {
-    flex: 0.5,
-    flexDirection: "column",
-    paddingLeft: 10,
-  },
-
-  label: {
-    color: "#333",
     fontFamily: "jannalt",
     fontWeight: "bold",
-    direction: "rtl",
-  },
-  value: {
-    paddingRight: 10,
-    fontFamily: "jannalt",
-    fontWeight: "bold",
-    direction: "rtl",
     color: "#222",
-    backgroundColor: "#fff",
-    height: "30px",
+    direction: "rtl",
+  },
+  nationality: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(66px, 65px)",
+  },
+  idNumber: {
+    height: 50,
+    maxWidth: 150,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(300px, 52px)",
+  },
+  profession: {
+    height: 50,
+    maxWidth: 150,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(66px, 95px)",
+  },
+  healthCertificateNumber: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(300px, 82px)",
+  },
+  healthCertificateIssuedAt: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(300px, 107px)",
+  },
+  healthCertificateExpiresAt: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(66px, 120px)",
+  },
+  educationalProgramType: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(300px, 130px)",
+  },
+  educationalProgramExpiresAt: {
+    maxWidth: 150,
+    height: 50,
+    direction: "rtl",
+    fontFamily: "jannalt",
+    fontWeight: "bold",
+    transform: "translate(66px, 144px)",
   },
   userImage: {
-    width: 125,
-    height: 125,
-    padding: 3,
-    border: "1px solid #85BD48",
-    backgroundColor: "#FFF",
-    marginVertical: 10,
-    justifyContent: "center",
+    width: 119,
+    height: 120,
     alignItems: "center",
-  },
-  photoText: {
-    fontSize: 10,
-    color: "#555",
-    fontFamily: "jannalt",
-    fontWeight: "bold",
+    transform: "translate(5px, 13px)",
   },
   qrCode: {
-    width: 125,
-    height: 120,
-    padding: 3,
-    border: "1px solid #85BD48",
-    backgroundColor: "#FFF",
+    width: 119,
+    height: 118,
+    transform: "translate(5px, 29px)",
   },
 });
+
+// Helper function to safely format dates
+const formatHijriDate = (date) => {
+  if (!date || !moment(date).isValid()) return "";
+  return moment(date).format("iYYYY/iMM/iDD");
+};
 
 export const PersonalInfoSection = ({ qrCodeUrl, imgLink, formData }) => (
   <View style={styles.rowsContainer}>
     <View style={styles.leftCol}>
       <Image src={imgLink} style={styles.userImage} />
-
       <Image src={qrCodeUrl} style={styles.qrCode} />
     </View>
     <View style={styles.rightCol}>
-      <Text style={styles.name}>{formData.name}</Text>
+      <Text style={styles.name}>{formData.name || ""}</Text>
 
       <View style={styles.content}>
-        <View style={styles.leftContent}>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>الجنسية</Text>
-            <Text style={styles.value}>{formData.nationality}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>المهنة</Text>
-            <Text style={styles.value}>{formData.profession}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>تاريخ نهاية الشهادة الصحية</Text>
-            <Text style={styles.value}>
-              {moment(formData.healthCertificateExpiresAt).format(
-                "iYYYY/iMM/iDD"
-              )}
-            </Text>
-          </View>
-
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>تاريخ انتهاء البرنامج التثقيفي</Text>
-            <Text style={styles.value}>
-              {moment(formData.educationalProgramExpiresAt).format(
-                "iYYYY/iMM/iDD"
-              )}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.rightContent}>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>رقم الهوية</Text>
-            <Text style={styles.value}>{formData.idNumber}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>رقم الشهادة الصحية</Text>
-            <Text style={styles.value}>{formData.healthCertificateNumber}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>تاريخ إصدار الشهادة الصحية</Text>
-            <Text style={styles.value}>
-              {moment(formData.healthCertificateIssuedAt).format(
-                "iYYYY/iMM/iDD"
-              )}
-            </Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.label}>نوع البرنامج التثقيفي</Text>
-            <Text style={styles.value}>{formData.educationalProgramType}</Text>
-          </View>
-        </View>
+        <Text style={styles.nationality}>{formData.nationality || ""}</Text>
+        <Text style={styles.idNumber}>{formData.idNumber || ""}</Text>
+        <Text style={styles.profession}>{formData.profession || ""}</Text>
+        <Text style={styles.healthCertificateNumber}>
+          {formData.healthCertificateNumber || ""}
+        </Text>
+        <Text style={styles.healthCertificateExpiresAt}>
+          {formatHijriDate(formData.healthCertificateExpiresAt) || ""}
+        </Text>
+        <Text style={styles.healthCertificateIssuedAt}>
+          {formatHijriDate(formData.healthCertificateIssuedAt) || ""}
+        </Text>
+        <Text style={styles.educationalProgramExpiresAt}>
+          {formatHijriDate(formData.educationalProgramExpiresAt) || ""}
+        </Text>
+        <Text style={styles.educationalProgramType}>
+          {formData.educationalProgramType || ""}
+        </Text>
       </View>
     </View>
   </View>
